@@ -1,0 +1,55 @@
+include ./lib/header.jade
+    script.
+        !(function() {
+            var rem;
+            rem = function() {
+                document.documentElement.style.fontSize = (document.documentElement.clientWidth || document.documentElement.clientWidth) + 'px';
+            };
+            rem();
+            window.addEventListener('resize', rem, false);
+            var _hmt = _hmt || []
+        })();
+    link(href="/static/css/map.css",rel="stylesheet",type="text/css")
+    script(language="javascript",src="http://api.map.baidu.com/api?v=2.0&ak=Ch9Gu1Slw6RC4Al91tuo2lkt")
+    script(language="javascript",src="/static/js/map.min.js")
+    body(ng-controller="mapCtrl")
+        div.first-view(ng-show="searchBackground==false")
+            div.nav.clearfix
+                div.go-left.clearfix=""
+                div.address.clearfix(ng-click="search()",ng-cloak)
+                    div.location-icon.clearfix=""
+                    div.location-address.clearfix {{ address }}
+                div.more.clearfix(ng-click="filter.show()")
+                    div.text 科目
+                    div.more-icon-down(ng-show="filter.status==false")=""
+                    div.more-icon-up(ng-show="filter.status==true")=""
+            div.filter-background(ng-show="filter.status==true")
+                div.filter
+                div.close(ng-click="filter.show()")=""
+            div#map=""
+            div#go-back(ng-click="goBack()")=""
+        div.second-view(ng-show="searchBackground==true")
+            div.nav.clearfix
+                div.go-left.clearfix(ng-click="backMap()")=""
+                div.address.clearfix(ng-click="search()",ng-cloak)
+                    div.location-icon.clearfix=""
+                    div.location-address.clearfix {{ address }}
+                div.more.clearfix(ng-click="filter.show()")
+                    div.text 科目
+                    div.more-icon-down(ng-show="filter.status==false")=""
+                    div.more-icon-up(ng-show="filter.status==true")=""
+            div.message(ng-show="messageShow==true")=""
+            div#search-background
+                div.input-area
+                    span#search-icon
+                    input#address-input(placeholder="输入想要查找的地址",input)
+                div#location-result
+                    div#get-position.clearfix(ng-click="position_press()",ng-show="resultShow==false")
+                        div.position-icon(ng-show="positionPress==false").clearfix=""
+                        div.position-icon-animate(ng-show="positionPress==true").clearfix=""
+                        div.text.clearfix 定位当前地址
+                    div#position-result(ng-show="resultShow==true")
+                        div.location(ng-repeat="i in res",ng-click="fixTo({{ i.point }})")
+                            div.title {{ i.title }}
+                            div.address {{ i.address }}
+
