@@ -61,18 +61,12 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
     $scope.positionPress = false;
     $scope.position_press = function() {
         if($scope.positionPress == false) {
-            $scope.positionPress = true;
             var geo = new BMap.Geocoder();
             geo.getLocation(me,function(result){
                 if(result) {
                     $("#address-input").val(result.address);
                 } 
             });
-
-            setTimeout(function(){
-                $scope.positionPress = false;
-                $scope.$apply();
-            },1000);
         }
     };
     var handleSuccess = function(position) {

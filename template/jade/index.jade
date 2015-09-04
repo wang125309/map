@@ -45,8 +45,7 @@ include ./lib/header.jade
                     input#address-input(placeholder="输入想要查找的地址",input)
                 div#location-result
                     div#get-position.clearfix(ng-click="position_press()",ng-show="resultShow==false")
-                        div.position-icon(ng-show="positionPress==false").clearfix=""
-                        div.position-icon-animate(ng-show="positionPress==true").clearfix=""
+                        div.position-icon.clearfix=""
                         div.text.clearfix 定位当前地址
                     div#position-result(ng-show="resultShow==true")
                         div.location(ng-repeat="i in res",ng-click="fixTo({{ i.point }})")
