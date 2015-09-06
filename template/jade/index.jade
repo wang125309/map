@@ -31,13 +31,17 @@ include ./lib/header.jade
         div.second-view(ng-show="searchBackground==true")
             div.nav.clearfix
                 div.go-left.clearfix(ng-click="backMap()")=""
-                div.address.clearfix(ng-click="search()",ng-cloak)
+                div.address.clearfix(ng-click="changeCity()",ng-cloak)
                     div.location-icon.clearfix=""
-                    div.location-address.clearfix {{ address }}
+                    div.location-address.clearfix {{ city }}
+                        span.change-city=""
                 div.more.clearfix(ng-click="filter.show()")
                     div.text 科目
                     div.more-icon-down(ng-show="filter.status==false")=""
                     div.more-icon-up(ng-show="filter.status==true")=""
+            div.filter-background(ng-show="filter.status==true")
+                div.filter
+                div.close(ng-click="filter.show()")=""
             div.message(ng-show="messageShow==true")=""
             div#search-background
                 div.input-area
@@ -51,4 +55,6 @@ include ./lib/header.jade
                         div.location(ng-repeat="i in res",ng-click="fixTo({{ i.point }})")
                             div.title {{ i.title }}
                             div.address {{ i.address }}
+        div.third-view(ng-show="changeCityShow == true")
+            div.city-detail=""
 

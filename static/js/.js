@@ -34993,6 +34993,7 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
     $scope.searchBackground = false;
     $scope.search = function() {
         if($scope.searchBackground == false) {
+            $(".first-view").addClass("first-view-animation");
             $scope.searchBackground = true;
         }
         else {
@@ -35034,7 +35035,8 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
                 var geo = new BMap.Geocoder();
                 geo.getLocation(data.points[0],function(result){
                     if(result) {
-                        $scope.address = result.address;
+                        $scope.city = result.addressComponents.city;
+                        $scope.address= result.address;
                         $scope.$apply();
                     } 
                 });
