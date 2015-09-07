@@ -75,6 +75,13 @@ image-auto(image)
         -webkit-transform:translateX(1rem)
     100%
         -webkit-transform:translateX(0)
+        
+@-webkit-keyframes tab-third
+    0%
+        -webkit-transform:translateX(1rem)
+    100%
+        -webkit-transform:translateX(0)
+        
 @-webkit-keyframes rotate
     0%
         -webkit-transform:rotate(0deg)
@@ -87,9 +94,12 @@ body
     background-color:#f5f5f5
     .first-view.ng-hide
         animation(0.5s,'tab-left',0s)
-
+        
     .second-view.ng-hide
         animation(0.5s,'tab-right',0s)
+
+    .second-view.changeToCity.ng-hide
+        animation(0.5s,'tab-left',0s)
         
     #map
         width:100%
@@ -189,6 +199,36 @@ body
         border-bottom:1px solid #dcdcdc
         animation(0.5s,'filter-down',0s)
         z-index:1
+        .subject
+            background-color:#f5f5f5
+            .subject-title
+                font-size:0.046rem
+                color:#333
+                padding:0.02rem 0
+                padding-left:0.04rem
+            .subject-wrap
+                border-left:1px solid #dcdcdc
+                max-width:92%
+                margin-left:0.04rem
+                .subject-sub
+                    background-color:#fff
+                    display:inline-table
+                    height:0.06rem
+                    font-size:0.038rem
+                    color:#777
+                    width:0.2275rem
+                    border-right:1px solid #dcdcdc
+                    border-bottom:1px solid #dcdcdc
+                    line-height:0.09rem
+                    text-align:center
+                    &:nth-child(1)
+                        border-top:1px solid #dcdcdc
+                    &:nth-child(2)
+                        border-top:1px solid #dcdcdc
+                    &:nth-child(3)
+                        border-top:1px solid #dcdcdc
+                    &:nth-child(4)
+                        border-top:1px solid #dcdcdc
     .close
         position:absolute
         width:0.12rem
@@ -219,6 +259,11 @@ body
         position:absolute
         height:100%
         width:100%
+    .third-view
+        position:absolute
+        height:100%
+        width:100%
+        animation(0.5s,'tab-third',0s)
     #search-background
         position:absolute
         top:0.15rem
@@ -290,4 +335,15 @@ body
             &:last-child
                 padding-bottom:0
                 border-bottom:none
-        border-bottom:1px solid #dcdcdc
+                border-bottom:1px solid #dcdcdc
+    .city-details
+        margin-top:0.15rem
+        .city-detail
+            padding:0.02rem
+            height:0.07rem
+            border-bottom:1px solid #dcdcdc
+            font-size:0.045rem
+            text-align:left
+            background:#fff
+            line-height:0.07rem
+

@@ -11,9 +11,10 @@ include ./lib/header.jade
         })();
     link(href="/static/css/map.css",rel="stylesheet",type="text/css")
     script(language="javascript",src="http://api.map.baidu.com/api?v=2.0&ak=Ch9Gu1Slw6RC4Al91tuo2lkt")
+    script(language="javascript",src="http://www.shouxiner.com/sxmobile/tags.js")
     script(language="javascript",src="/static/js/map.min.js")
     body(ng-controller="mapCtrl")
-        div.first-view(ng-show="searchBackground==false")
+        div.first-view(ng-show="searchBackground==false&&changeCityShow==false")
             div.nav.clearfix
                 div.go-left.clearfix=""
                 div.address.clearfix(ng-click="search()",ng-cloak)
@@ -25,23 +26,24 @@ include ./lib/header.jade
                     div.more-icon-up(ng-show="filter.status==true")=""
             div.filter-background(ng-show="filter.status==true")
                 div.filter
+                    div.subject
+                        div.subject-title 热门
+                        div.subject-wrap.clearfix
+                            div.subject-sub(ng-repeat="i in hots") {{ i.name }}
+                    div.subject(ng-repeat="i in tags")
+                        div.subject-title {{ i.name }}
+                        div.subject-wrap.clearfix
+                            div.subject-sub(ng-repeat="j in i.children") {{ j.name }}
                 div.close(ng-click="filter.show()")=""
             div#map=""
             div#go-back(ng-click="goBack()")=""
-        div.second-view(ng-show="searchBackground==true")
+        div.second-view(ng-show="searchBackground==true&&changeCityShow==false")
             div.nav.clearfix
                 div.go-left.clearfix(ng-click="backMap()")=""
                 div.address.clearfix(ng-click="changeCity()",ng-cloak)
                     div.location-icon.clearfix=""
                     div.location-address.clearfix {{ city }}
                         span.change-city=""
-                div.more.clearfix(ng-click="filter.show()")
-                    div.text 科目
-                    div.more-icon-down(ng-show="filter.status==false")=""
-                    div.more-icon-up(ng-show="filter.status==true")=""
-            div.filter-background(ng-show="filter.status==true")
-                div.filter
-                div.close(ng-click="filter.show()")=""
             div.message(ng-show="messageShow==true")=""
             div#search-background
                 div.input-area
@@ -55,6 +57,12 @@ include ./lib/header.jade
                         div.location(ng-repeat="i in res",ng-click="fixTo({{ i.point }})")
                             div.title {{ i.title }}
                             div.address {{ i.address }}
-        div.third-view(ng-show="changeCityShow == true")
-            div.city-detail=""
+        div.third-view(ng-show="changeCityShow==true&&searchBackground==false")
+            div.nav.clearfix
+                div.go-left.clearfix(ng-click="backMap()")=""
+                div.address.clearfix(ng-click="changeCity()",ng-cloak)
+                    div.location-icon.clearfix=""
+                    div.location-address.clearfix 切换城市
+            div.city-details
+                div.city-detail(ng-repeat="i in citys") {{ i.name }}
 

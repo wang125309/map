@@ -34975,6 +34975,7 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
     };
     $scope.backMap = function() {
         $scope.searchBackground = false;
+        $scope.changeCityShow = false;
     };
     $scope.fixTo = function(point) {
         var p = new BMap.Point(point.lng,point.lat);
@@ -34988,6 +34989,14 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
             } 
         });
     };
+    $scope.changeCityShow = false;
+    $scope.citys = window.tags.citys;
+    $scope.changeCity = function() {
+        $(".second-view").addClass("changeToCity");
+        $scope.changeCityShow = true;
+        $scope.searchBackground = false;
+    };
+    console.log(window.tags.citys);
     $scope.resultShow = false;
     $scope.address = '定位中...';
     $scope.searchBackground = false;
@@ -34995,9 +35004,7 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
         if($scope.searchBackground == false) {
             $(".first-view").addClass("first-view-animation");
             $scope.searchBackground = true;
-        }
-        else {
-            $scope.searchBackground = false;
+            $scope.changeCityShow = false;
         }
     };
     $scope.messageShow = false;
@@ -35005,6 +35012,9 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
     $scope.goBack = function() {
         map.centerAndZoom(me,17);
     };
+    $scope.tags = window.tags.subjects;
+    $scope.hots = window.tags.hot_subjects;
+    console.log(tags);
     $scope.positionPress = false;
     $scope.position_press = function() {
         if($scope.positionPress == false) {
