@@ -59,10 +59,9 @@ include ./lib/header.jade
                             div.address {{ i.address }}
         div.third-view(ng-show="changeCityShow==true&&searchBackground==false")
             div.nav.clearfix
-                div.go-left.clearfix(ng-click="backMap()")=""
+                div.go-left.clearfix(ng-click="backSearch()")=""
                 div.address.clearfix(ng-click="changeCity()",ng-cloak)
                     div.location-icon.clearfix=""
                     div.location-address.clearfix 切换城市
             div.city-details
                 div.city-detail(ng-repeat="i in citys") {{ i.name }}
-

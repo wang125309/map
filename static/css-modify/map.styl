@@ -76,6 +76,12 @@ image-auto(image)
     100%
         -webkit-transform:translateX(0)
         
+@-webkit-keyframes tab-second-revarse 
+    0%
+        -webkit-transform:translateX(-1rem)
+    100%
+        -webkit-transform:translateX(0)
+        
 @-webkit-keyframes tab-third
     0%
         -webkit-transform:translateX(1rem)
@@ -93,13 +99,16 @@ body
     font-size:0.04rem
     background-color:#f5f5f5
     .first-view.ng-hide
-        animation(0.5s,'tab-left',0s)
+        animation(0.2s,'tab-left',0s)
         
     .second-view.ng-hide
-        animation(0.5s,'tab-right',0s)
+        animation(0.2s,'tab-right',0s)
 
+    .second-view.changeToCity
+        animation(0.2s,'tab-second-revarse',0s)
+        
     .second-view.changeToCity.ng-hide
-        animation(0.5s,'tab-left',0s)
+        animation(0.2s,'tab-left',0s)
         
     #map
         width:100%
@@ -253,17 +262,22 @@ body
         height:100%
         width:100%
     .first-view-animation
-        animation(0.5s,'tab-first',0s)
+        animation(0.2s,'tab-first',0s)
+
     .second-view
-        animation(0.5s,'tab-second',0s)
+        animation(0.2s,'tab-second',0s)
         position:absolute
         height:100%
         width:100%
+        background-color:#f5f5f5
     .third-view
         position:absolute
         height:100%
         width:100%
-        animation(0.5s,'tab-third',0s)
+        background-color:#f5f5f5
+        animation(0.2s,'tab-third',0s)
+    .third-view.ng-hide
+        animation(0.2s,'tab-right',0s)
     #search-background
         position:absolute
         top:0.15rem

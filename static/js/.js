@@ -34976,6 +34976,7 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
     $scope.backMap = function() {
         $scope.searchBackground = false;
         $scope.changeCityShow = false;
+        $(".second-view").removeClass("changeToCity");
     };
     $scope.fixTo = function(point) {
         var p = new BMap.Point(point.lng,point.lat);
@@ -35006,6 +35007,10 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
             $scope.searchBackground = true;
             $scope.changeCityShow = false;
         }
+    };
+    $scope.backSearch = function() {
+        $scope.searchBackground = true;
+        $scope.changeCityShow = false;
     };
     $scope.messageShow = false;
     var lng,lat,me;
