@@ -14,7 +14,7 @@ include ./lib/header.jade
     script(language="javascript",src="http://www.shouxiner.com/sxmobile/tags.js")
     script(language="javascript",src="/static/js/map.min.js")
     body(ng-controller="mapCtrl")
-        div.first-view(ng-show="searchBackground==false&&changeCityShow==false")
+        div.first-view(ng-show="searchBackground==false&&changeCityShow==false",style="width:1rem")
             div.nav.clearfix
                 div.go-left.clearfix=""
                 div.address.clearfix(ng-click="search()",ng-cloak)
@@ -37,7 +37,7 @@ include ./lib/header.jade
                 div.close(ng-click="filter.show()")=""
             div#map=""
             div#go-back(ng-click="goBack()")=""
-        div.second-view(ng-show="searchBackground==true&&changeCityShow==false")
+        div.second-view(ng-show="searchBackground==true&&changeCityShow==false",style="width:1rem")
             div.nav.clearfix
                 div.go-left.clearfix(ng-click="backMap()")=""
                 div.address.clearfix(ng-click="changeCity()",ng-cloak)
@@ -57,7 +57,7 @@ include ./lib/header.jade
                         div.location(ng-repeat="i in res",ng-click="fixTo({{ i.point }})")
                             div.title {{ i.title }}
                             div.address {{ i.address }}
-        div.third-view(ng-show="changeCityShow==true&&searchBackground==false")
+        div.third-view(ng-show="changeCityShow==true&&searchBackground==false",style="width:1rem")
             div.nav.clearfix
                 div.go-left.clearfix(ng-click="backSearch()")=""
                 div.address.clearfix(ng-click="changeCity()",ng-cloak)
