@@ -36,10 +36,52 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
         var p = new BMap.Point(point.lng,point.lat);
         map.centerAndZoom(p,17);
         $scope.search();
+        $scope.searchBackground = false;
         var geo = new BMap.Geocoder();
         geo.getLocation(p,function(result){
             if(result) {
-                $scope.address = result.address;
+                $.get("/tradecenter/api/map/list?lng="+result.point.lng+"&lat="+result.point.lat,function(data){
+                    $scope.list = data.list;
+                    ms = [];
+                    for (i in data.list) {
+                        lng = data.list[i].lng;
+                        lat = data.list[i].lat;
+                        if (data.list[i].allowCoupon == 1 && data.list[i].suitable == 0) {
+                            icon = new BMap.Icon("/static/image/set-icon-blue.png",new BMap.Size(66,58));
+                        }
+                        else if(data.list[i].allowCoupon == 0 && data.list[i].suitable == 0){
+                            icon = new BMap.Icon("/static/image/set-icon-red.png",new BMap.Size(45,58));
+                        }
+                        else {
+                            icon = new BMap.Icon("/static/image/set-icon-uni.png",new BMap.Size(88,58));
+                        }
+                        var p = new BMap.Point(lng,lat);
+                        var m = new BMap.Marker(p,{
+                            icon:icon
+                        });
+                        ms.push(m);
+
+                    }
+                    for (m in ms) {
+                        ms[m].addEventListener("click",function(e){
+                            c = getNearestPoint(data.list,e.point.lng,e.point.lat);
+                            $scope.shopid = data.list[c].shopid;
+                            $scope.orgName = data.list[c].orgName;
+                            $scope.courseName = data.list[c].courseName;
+                            $scope.priceSale = data.list[c].priceSale;
+                            $scope.logo = data.list[c].logo;
+                            $scope.suitable = data.list[c].suitable;
+                            $scope.pricePromise = data.list[c].pricePromise;
+                            $scope.allowCoupon = data.list[c].allowCoupon;
+                            $scope.type = data.list[c].type;
+                            $scope.messageShow = true;
+                            $scope.$apply();
+                        });
+                        map.addOverlay(ms[m]);
+                    }
+                });
+                $scope.city = result.addressComponents.city;
+                $scope.address= result.address;
                 $scope.$apply();
             } 
         });
@@ -71,6 +113,11 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
     $scope.goBack = function() {
         map.centerAndZoom(me,17);
     };
+    $scope.changeTo = function(city) {
+        $scope.changeCityShow = false;
+        $scope.searchBackground = true;
+        $scope.city = city;
+    };
     $scope.tags = window.tags.subjects;
     $scope.hots = window.tags.hot_subjects;
     console.log(tags);
@@ -85,25 +132,83 @@ mapCtrl = angular.module('app',['ngTouch','ngAnimate']).controller('mapCtrl',['$
             });
         }
     };
+    var getNearestPoint = function(map,lng,lat) {
+        d = 100000000000.0;
+        min = 0;
+        for (i in map) {
+            l = (map[i].lng - lng)*(map[i].lng - lng) + (map[i].lat - lat)*(map[i].lat - lat);
+            if (l < d) {
+                d = l;
+                min = i;
+            }
+        }
+        return min;
+    };
     var handleSuccess = function(position) {
         lng = position.coords.longitude;
         lat = position.coords.latitude;
-        //lat = 40.07674194573888;
-        //lng = 116.41599579202051;
+        //lng = 123.444745;
+        //lat = 41.798247;
+
         var point = new BMap.Point(lng,lat);
-        map.centerAndZoom(point,17);
+        map.centerAndZoom(point,15);
         map.addControl(new BMap.NavigationControl());
-        //FIXME
+        //FIXME using native coords
 
         translateCallback = function(data) {
             if(data.status == 0) {
-                var marker = new BMap.Marker(data.points[0]);
+                myIcon = new BMap.Icon("/static/image/set-icon-my.png",new BMap.Size(30,33));
+                var marker = new BMap.Marker(data.points[0],{
+                    icon:myIcon
+                });
                 map.addOverlay(marker);
                 map.setCenter(data.points[0]);
                 me = data.points[0];
                 var geo = new BMap.Geocoder();
                 geo.getLocation(data.points[0],function(result){
                     if(result) {
+                        result.point.lng = lng;
+                        result.point.lat = lat;
+                        $.get("/tradecenter/api/map/list?lng="+result.point.lng+"&lat="+result.point.lat,function(data){
+                            $scope.list = data.list;
+                            ms = [];
+                            for (i in data.list) {
+                                lng = data.list[i].lng;
+                                lat = data.list[i].lat;
+                                if (data.list[i].allowCoupon == 1 && data.list[i].suitable == 0) {
+                                    icon = new BMap.Icon("/static/image/set-icon-blue.png",new BMap.Size(66,58));
+                                }
+                                else if(data.list[i].allowCoupon == 0 && data.list[i].suitable == 0){
+                                    icon = new BMap.Icon("/static/image/set-icon-red.png",new BMap.Size(45,58));
+                                }
+                                else {
+                                    icon = new BMap.Icon("/static/image/set-icon-uni.png",new BMap.Size(88,58));
+                                }
+                                var p = new BMap.Point(lng,lat);
+                                var m = new BMap.Marker(p,{
+                                    icon:icon
+                                });
+                                ms.push(m);
+                                
+                            }
+                            for (m in ms) {
+                                ms[m].addEventListener("click",function(e){
+                                    c = getNearestPoint(data.list,e.point.lng,e.point.lat);
+                                    $scope.shopid = data.list[c].shopid;
+                                    $scope.orgName = data.list[c].orgName;
+                                    $scope.courseName = data.list[c].courseName;
+                                    $scope.priceSale = data.list[c].priceSale;
+                                    $scope.logo = data.list[c].logo;
+                                    $scope.suitable = data.list[c].suitable;
+                                    $scope.pricePromise = data.list[c].pricePromise;
+                                    $scope.allowCoupon = data.list[c].allowCoupon;
+                                    $scope.type = data.list[c].type;
+                                    $scope.messageShow = true;
+                                    $scope.$apply();
+                                });
+                                map.addOverlay(ms[m]);
+                            }
+                        });
                         $scope.city = result.addressComponents.city;
                         $scope.address= result.address;
                         $scope.$apply();

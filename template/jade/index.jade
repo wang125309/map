@@ -36,6 +36,23 @@ include ./lib/header.jade
                             div.subject-sub(ng-repeat="j in i.children") {{ j.name }}
                 div.close(ng-click="filter.show()")=""
             div#map=""
+            div.message-background(ng-show="messageShow==true",ng-click="messageShow=false")
+                div.message(ng-show="messageShow==true")
+                    div.title 
+                        div.org-name {{ orgName }}
+                        div.coupon(ng-show="allowCoupon==1")
+                    div.desc.clearfix
+                        div.avatar
+                            img(ng-src="{{ logo }}")
+                        div.desc-area
+                            div.line-first.clearfix
+                                div.type {{ type }}
+                                div.course-name.clearfix {{ courseName }}
+                            div.line-second.clearfix    
+                                div.price.clearfix ￥{{ priceSale }}
+                                div.promise-icon.clearfix(ng-show="pricePromise==1")
+                            div.more.clearfix 更多
+                                span.more-icon=""
             div#go-back(ng-click="goBack()")=""
         div.second-view(ng-show="searchBackground==true&&changeCityShow==false",style="width:100%")
             div.nav.clearfix
@@ -44,7 +61,7 @@ include ./lib/header.jade
                     div.location-icon.clearfix=""
                     div.location-address.clearfix {{ city }}
                         span.change-city=""
-            div.message(ng-show="messageShow==true")=""
+
             div#search-background
                 div.input-area
                     span#search-icon
@@ -64,4 +81,4 @@ include ./lib/header.jade
                     div.location-icon.clearfix=""
                     div.location-address.clearfix 切换城市
             div.city-details
-                div.city-detail(ng-repeat="i in citys") {{ i.name }}
+                div.city-detail(ng-repeat="i in citys",ng-click="changeTo(i.name)") {{ i.name }}
