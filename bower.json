@@ -1,11 +1,12 @@
 {
-  "name": "ford",
+  "name": "map",
   "version": "0.0.0",
-  "homepage": "https://github.com/wang125309/ford",
+  "homepage": "https://github.com/wang125309/map",
   "authors": [
-    "wang_125309 <wang_125309@foxmail.com>"
+    "wang125309 <wang_125309@foxmail.com>"
   ],
   "license": "MIT",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -14,12 +15,18 @@
     "tests"
   ],
   "dependencies": {
+    "angular-resource": "~1.4.5",
+    "angular-touch": "~1.4.5",
+    "angular-route": "~1.4.5",
     "iscroll": "~5.1.3",
+    "angular": "~1.4.5",
+    "normalize.css": "~3.0.3",
+    "angular-animate": "~1.4.5",
     "jquery": "~2.1.3",
     "swipejs": "~2.0.0",
-    "swipe": "~2.0.0",
-    "swiper": "~3.0.4",
     "velocity": "~1.2.2",
+    "swiper": "~3.0.4",
+    "swipe": "~2.0.0",
     "zepto": "~1.1.6",
     "zeptojs": "~1.1.6"
   }
